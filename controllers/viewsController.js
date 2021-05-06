@@ -51,6 +51,12 @@ exports.getLoginForm = (req, res) => {
   });
 };
 
+exports.getSignupForm = (req, res) => {
+  res.render('signup', {
+    title: 'Join us now'
+  });
+};
+
 exports.getAccount = (req, res) => {
   res.render('account', {
     title: 'My Account'

@@ -2,25 +2,40 @@ import axios from 'axios';
 import { showAlert } from './alert';
 
 export const login = async (email, password) => {
-  try {
-    console.log(email, password);
-    const res = await axios({
-      method: 'post',
-      url: '/api/v1/users/login',
-      data: {
-        email,
-        password
-      }
-    });
-
-    if (res.data.status === 'success') {
-      showAlert('success', 'You are logged in successfully!');
-      window.setTimeout(() => {
-        location.assign('/');
-      }, 1500);
+  const res = await axios({
+    method: 'post',
+    url: '/api/v1/users/login',
+    data: {
+      email,
+      password
     }
-  } catch (err) {
-    showAlert('error', err.response.data.message);
+  });
+
+  if (res.data.status === 'success') {
+    showAlert('success', 'You are logged in successfully!');
+    window.setTimeout(() => {
+      location.assign('/');
+    }, 1500);
+  }
+};
+
+export const signup = async ({ name, email, password, confirmPassword }) => {
+  const res = await axios({
+    method: 'post',
+    url: '/api/v1/users/signup',
+    data: {
+      name,
+      email,
+      password,
+      confirmPassword
+    }
+  });
+
+  if (res.data.status === 'success') {
+    showAlert('success', 'You are signed up successfully!');
+    window.setTimeout(() => {
+      location.assign('/');
+    }, 1500);
   }
 };
 

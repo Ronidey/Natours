@@ -2,13 +2,15 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import { displayMap } from './mapbox';
-import { login, logout } from './login';
+import { login, logout, signup } from './login';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
+import { showAlert } from './alert';
 
 // DOM Elements
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
+const signupForm = document.querySelector('.form--signup');
 const logoutBtn = document.querySelector('.nav__el--logout');
 const userForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
@@ -21,12 +23,42 @@ if (mapBox) {
 }
 
 if (loginForm) {
-  loginForm.addEventListener('submit', (e) => {
+  loginForm.addEventListener('submit', async function (e) {
     e.preventDefault();
+
+    const btn = this.btnSubmit;
+    btn.textContent = 'Wait...';
+    btn.setAttribute('disabled', 'disabled');
+
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    login(email, password);
+    login(email, password).catch((err) => {
+      showAlert('error', err.response.data.message);
+      btn.textContent = 'Login';
+      btn.removeAttribute('disabled');
+    });
+  });
+}
+
+if (signupForm) {
+  signupForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const btn = this.btnSubmit;
+    btn.textContent = 'Wait...';
+    btn.setAttribute('disabled', 'disabled');
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    signup({ name, email, password, confirmPassword }).catch((err) => {
+      showAlert('error', err.response.data.message);
+      btn.textContent = 'Signup';
+      btn.removeAttribute('disabled');
+    });
   });
 }
 

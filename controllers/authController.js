@@ -37,22 +37,14 @@ const createSendToken = (user, statusCode, res) => {
 
 // ==== Authentication =====
 exports.signup = catchAsync(async (req, res, next) => {
-  const {
-    name,
-    email,
-    photo,
-    password,
-    confirmPassword,
-    passwordChangedAt
-  } = req.body;
+  const { name, email, photo, password, confirmPassword } = req.body;
 
   const newUser = await User.create({
     name,
     email,
     photo,
     password,
-    confirmPassword,
-    passwordChangedAt
+    confirmPassword
   });
 
   const url = `${req.protocol}://${req.get('host')}/me`;

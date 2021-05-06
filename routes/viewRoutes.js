@@ -12,6 +12,7 @@ router.get(
 );
 router.get('/tour/:slug', authCtrl.isLoggedIn, viewsCtrl.getTour);
 router.get('/login', authCtrl.isLoggedIn, viewsCtrl.getLoginForm);
+router.get('/signup', authCtrl.isLoggedIn, viewsCtrl.getSignupForm);
 router.get('/me', authCtrl.protect, viewsCtrl.getAccount);
 router.get('/my-tours', authCtrl.protect, viewsCtrl.getMyTours);
 
