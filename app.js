@@ -9,6 +9,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -39,6 +40,8 @@ app.use(
     }
   })
 );
+
+app.use(compression());
 
 // Global Middleware
 if (process.env.NODE_ENV === 'development') {
@@ -79,11 +82,14 @@ app.use(
   })
 );
 
-// For Testing
-// app.use((req, res, next) => {
-//   console.log(req.cookies.jwt);
-//   next();
-// });
+// ------- Heroku (forcing http to https) ------------
+if (process.env.NODE_ENV !== 'development') {
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https')
+      res.redirect(`https://${req.header('host')}${req.url}`);
+    else next();
+  });
+}
 
 app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
