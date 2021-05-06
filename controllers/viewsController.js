@@ -62,3 +62,14 @@ exports.getAccount = (req, res) => {
     title: 'My Account'
   });
 };
+
+exports.alerts = (req, res, next) => {
+  const { alert } = req.query;
+
+  if (alert === 'booking') {
+    res.locals.alert =
+      "Your booking was successful! Thank you for choosing us. If your booking doesn't show up please come back later!";
+  }
+
+  next();
+};

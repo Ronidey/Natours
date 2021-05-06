@@ -108,3 +108,9 @@ if (checkoutBtn) {
     bookTour(tourId);
   });
 }
+
+const alertMsg = document.querySelector('body').dataset.alert;
+
+if (alertMsg) {
+  showAlert('success', alertMsg, 20);
+}
