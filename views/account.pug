@@ -1,8 +1,5 @@
 extends base
 
-block append head
-  script(defer, src="/js/updateSettings.js")
-
 mixin navItem(link, text, icon, isActive)
   li(class=`${isActive ? 'side-nav--active' : ''}`)
     a(href=`${link}`)
@@ -13,7 +10,8 @@ mixin navItem(link, text, icon, isActive)
 block content
   main.main
     .user-view
-      nav.user-view__menu
+      nav#viewMenu.user-view__menu.arrow-animation
+        button#toggleViewMenu.toggle-view-menu(aria-label="toggle sidebar") &#10148;
         ul.side-nav
           +navItem('#', 'Settings', 'settings', true)
           +navItem('/my-tours', 'My bookings', 'briefcase')

@@ -71,10 +71,11 @@ block content
   section.section-map
     #map(data-locations=`${JSON.stringify(tour.locations)}`)
 
-  section.section-reviews
-    .reviews
-      each review in tour.reviews
-        +reviewCard(review)
+  if (tour.reviews.length)
+    section.section-reviews
+      .reviews
+        each review in tour.reviews
+          +reviewCard(review)
 
   section.section-cta
     .cta
@@ -83,10 +84,11 @@ block content
       img.cta__img.cta__img--1(src=`/img/tours/${tour.images[1]}`, alt='Tour picture')
       img.cta__img.cta__img--2(src=`/img/tours/${tour.images[2]}`, alt='Tour picture')
       .cta__content
-        h2.heading-secondary What are you waiting for?
-        p.cta__text= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
+        div
+          h2.heading-secondary What are you waiting for?
+          p.cta__text= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
 
         if user
-          button.btn.btn--green.span-all-rows#checkout-btn(data-tour-id=`${tour.id}`) Book tour now!
+          button.btn.btn--green#checkout-btn(data-tour-id=`${tour.id}`) Book tour now!
         else
           a.btn.btn--green.span-all-rows(href="/login") Login to book tour

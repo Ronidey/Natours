@@ -1,14 +1,15 @@
 header.header
-  nav.nav.nav--tours
-    a.nav__el(href="/") All tours
-    form.nav__search
-      button.nav__search-btn
-        svg
-          use(href="/img/icons.svg#icon-search")
-      input.nav__search-input(type="text", placeholder="Search tours")
+  //- nav.nav.nav--tours
+  //-   a.nav__el(href="/") All tours
 
-  .header__logo
+  a.header__logo(href="/")
     img(src="/img/logo-white.png", alt="Natours logo")
+
+  .btn-bars
+    span
+    span
+    span
+
   nav.nav.nav--user
     if user
       a.nav__el.nav__el--logout Log out

@@ -7,6 +7,8 @@ import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe';
 import { showAlert } from './alert';
 
+import './main.css';
+
 // DOM Elements
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
@@ -16,6 +18,7 @@ const userForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 const btnSavePassword = document.querySelector('.btn--save-password');
 const checkoutBtn = document.getElementById('checkout-btn');
+const btnToggleViewMenu = document.getElementById('toggleViewMenu');
 
 if (mapBox) {
   const locations = JSON.parse(mapBox.dataset.locations);
@@ -113,4 +116,10 @@ const alertMsg = document.querySelector('body').dataset.alert;
 
 if (alertMsg) {
   showAlert('success', alertMsg, 20);
+}
+
+if (btnToggleViewMenu) {
+  btnToggleViewMenu.addEventListener('click', () => {
+    document.getElementById('viewMenu').classList.toggle('show');
+  });
 }
